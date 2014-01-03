@@ -38,7 +38,7 @@ let g:EasyMotion_leader_key = '<Leader>'
 " ...
 
 filetype plugin indent on     " required!
-filetype on
+" filetype on
 "
 " Brief help
 " :BundleList          - list configured bundles
