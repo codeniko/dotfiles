@@ -1,0 +1,7 @@
+[user]
+	name = Nikolay Feldman
+	email = nf139@cs.rutgers.edu
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
