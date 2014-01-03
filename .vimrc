@@ -23,11 +23,22 @@ noremap <LEADER>p "+p
 " " Clear search and match highlighting
 nmap <SPACE> :match none<CR>:nohlsearch<CR>
 
-
+" Backups {{{
+set backup " enable backups
+"     set noswapfile "disable backups
+set backupdir=~/.vim/tmp/backup/ " backups
+set directory=~/.vim/tmp/swap/ " swap files
+" Create dirs if they don't exist
+if !isdirectory(expand(&backupdir))
+	call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+	call mkdir(expand(&directory), "p")
+endif
 set nocompatible "This fixes the problem where arrow keys do not function properly on some systems.
 syntax on  "Enables syntax highlighting for programming languages
-set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
-" set showmatch "Highlights matching brackets in programming languages
+" set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
+set showmatch "Highlights matching brackets in programming languages
 set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set cursorline " Highlight current line
@@ -52,7 +63,8 @@ set wcm=<C-Z>
 map <F4> :emenu <C-Z>
 "--- End sweet menu
 
-
+" Compile Latex when I save it.
+au BufWritePost *.tex "silent !pdflatex %"
 
 "VUNDLE
 
