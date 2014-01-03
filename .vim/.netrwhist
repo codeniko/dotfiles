@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/niko'
+let g:netrw_dirhist_2='/home/niko/Desktop/Fall 2013/CS214/pa4/docs/TestCase1'
