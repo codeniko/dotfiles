@@ -68,6 +68,10 @@ Bundle 'gmarik/vundle'
 " My bundles here:
 Bundle 'scrooloose/syntastic'
 Bundle 'Rip-Rip/clang_complete'
+let g:clang_complete_auto = 1
+let g:clang_use_library = 1
+let g:clang_debug = 1
+let g:clang_library_path = '/usr/lib'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'kien/ctrlp.vim'
 
