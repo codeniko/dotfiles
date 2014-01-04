@@ -84,7 +84,7 @@ let g:clang_complete_auto = 1
 let g:clang_use_library = 1
 let g:clang_debug = 1
 let g:clang_library_path = '/usr/lib'
-Bundle 'tomtom/tcomment_vim'
+" Bundle 'tomtom/tcomment_vim'
 Bundle 'kien/ctrlp.vim'
 
 Bundle 'Lokaltog/vim-easymotion'
