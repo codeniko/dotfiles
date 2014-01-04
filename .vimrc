@@ -66,6 +66,12 @@ map <F4> :emenu <C-Z>
 " Compile Latex when I save it.
 au BufWritePost *.tex "silent !pdflatex %"
 
+" Remove annoying automatic // insertion when pressing enter, o, or O after
+" commented line
+inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
+nnoremap <expr> O getline('.') =~ '^\s*//' ? 'O<esc>S' : 'O'
+nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
+
 "VUNDLE
 
 filetype off                 " required!
@@ -84,7 +90,7 @@ let g:clang_complete_auto = 1
 let g:clang_use_library = 1
 let g:clang_debug = 1
 let g:clang_library_path = '/usr/lib'
-" Bundle 'tomtom/tcomment_vim'
+Bundle 'tomtom/tcomment_vim'
 Bundle 'kien/ctrlp.vim'
 
 Bundle 'Lokaltog/vim-easymotion'
