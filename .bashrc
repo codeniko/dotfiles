@@ -95,6 +95,7 @@ alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
 
 alias ifconfig='/sbin/ifconfig'
+alias chrome='/opt/google/chrome/chrome'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
