@@ -88,6 +88,7 @@ fi
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
+alias ls='ls --color=always'
 mancrush="192.168.11.100"
 halfcourt="192.168.11.101"
 alias mount-mancrush='sudo mount $halfcourt:/home/niko/shared /mnt'
