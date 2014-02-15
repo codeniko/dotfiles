@@ -2,6 +2,7 @@ set t_Co=256
 set background=dark
 colorscheme molokai
 " let g:molokai_original = 1
+let g:rehash256 = 1 " Use Molokai's new version
 
 " Sets the value of <LEADER> (default is the backslash)
 let mapleader=","
@@ -11,6 +12,7 @@ map Y y$
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
 nmap <LEADER>s :write<CR>
+nmap <F1> :TagbarToggle<CR>
 nnoremap <LEADER>a ggVG
 
 " " Reload config file
@@ -26,8 +28,8 @@ nmap <SPACE> :match none<CR>:nohlsearch<CR>
 " Backups {{{
 set backup " enable backups
 "     set noswapfile "disable backups
-set backupdir=~/.vim/tmp/backup/ " backups
-set directory=~/.vim/tmp/swap/ " swap files
+set backupdir=~/.vim/backup/,/tmp " backups
+set directory=~/.vim/swap/ " swap files
 " Create dirs if they don't exist
 if !isdirectory(expand(&backupdir))
 	call mkdir(expand(&backupdir), "p")
@@ -35,18 +37,25 @@ endif
 if !isdirectory(expand(&directory))
 	call mkdir(expand(&directory), "p")
 endif
+" Simplify tag style by removing underlines
+hi TabLine term=none cterm=none ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
+set backspace=indent,eol,start " Backspace over these characters
 set nocompatible "This fixes the problem where arrow keys do not function properly on some systems.
 syntax on  "Enables syntax highlighting for programming languages
 " set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
+set mouse=n " Turn on mouse support in normal mode
 set showmatch "Highlights matching brackets in programming languages
 set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set cursorline " Highlight current line
+set ruler " display line and columns in the status bar
 set backspace=2  "This makes the backspace key function like it does in other programs.
-set tabstop=4  "How much space Vim gives to a tab
+set tabstop=2  "How much space Vim gives to a tab
+set showcmd " Display commands as they are typed
 set number  "Enables line numbering
 set smarttab  "Improves tabbing
-set shiftwidth=4  "Assists code formatting
+set shiftwidth=2  "Assists code formatting
+" set nowrap " Turn off line wrapping
 set foldmethod=manual  "Lets you hide sections of code
 ""--- The following commands make the navigation keys work like standard editors
 imap <silent> <Down> <C-o>gj
@@ -84,18 +93,35 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My bundles here:
+
+" Syntax checker
 Bundle 'scrooloose/syntastic'
+" disable `no docs` error checking
+let syntastic_gjslint_conf= '--nojsdoc'
+let g:syntastic_java_javac_config_file_enabled= 1
+
+" C/C++ language completion
 Bundle 'Rip-Rip/clang_complete'
 let g:clang_complete_auto = 1
 let g:clang_use_library = 1
 let g:clang_debug = 1
 let g:clang_library_path = '/usr/lib'
-Bundle 'tomtom/tcomment_vim'
+
+" Commenting with gcc binding
+" Bundle 'tomtom/tcomment_vim' 
+
+" File navigation
 Bundle 'kien/ctrlp.vim'
 
-Bundle 'Lokaltog/vim-easymotion'
+" Navigation with keyboard
+Bundle 'Lokaltog/vim-easymotion' 
 let g:EasyMotion_leader_key = '<Leader>'
 
+" Ctags improvement
+Bundle 'majutsushi/tagbar'
+
+" Matches closing parens,quotes,def/ends
+Bundle 'tsaleh/vim-matchit'
 
 "
 " original repos on GitHub
