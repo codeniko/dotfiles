@@ -89,14 +89,15 @@ fi
 #alias la='ls -A'
 #alias l='ls -CF'
 alias ls='ls --color=always'
-mancrush="192.168.11.100"
-halfcourt="192.168.11.101"
+mancrush='192.168.11.100'
+halfcourt='192.168.11.101'
 alias mount-mancrush='sudo mount $halfcourt:/home/niko/shared /mnt'
 alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
 
 alias ifconfig='/sbin/ifconfig'
 alias chrome='/opt/google/chrome/chrome'
+
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -118,4 +119,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
+# Tex
+export TEXMFHOME="${HOME}/texmf"
+alias updateTexHome="mktexlsr; updmap-sys; mktexlsr; texhash ${TEXMFHOME}"
+if [ ! -d ${TEXMFHOME} ]; then
+	mkdir -p "${HOME}/texmf/tex/latex"
+	mkdir -p "${HOME}/texmf/fonts/vf/public"
+	mkdir -p "${HOME}/texmf/fonts/type1/public"
+	mkdir -p "${HOME}/texmf/fonts/tfm/public"
+	mkdir -p "${HOME}/texmf/fonts/enc/public"
+	mkdir -p "${HOME}/texmf/fonts/map/dvips/public"
+fi
