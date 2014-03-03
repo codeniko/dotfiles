@@ -122,6 +122,8 @@ Bundle 'majutsushi/tagbar'
 
 " Matches closing parens,quotes,def/ends
 Bundle 'tsaleh/vim-matchit'
+" Navigate between tmux and vim
+Bundle 'christoomey/vim-tmux-navigator'
 
 "
 " original repos on GitHub

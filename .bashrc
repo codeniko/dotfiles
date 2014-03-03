@@ -91,12 +91,16 @@ fi
 alias ls='ls --color=always'
 mancrush='192.168.11.100'
 halfcourt='192.168.11.101'
+javascript='nf139@javascript.cs.rutgers.edu'
+java='nf139@java.cs.rutgers.edu'
 alias mount-mancrush='sudo mount $halfcourt:/home/niko/shared /mnt'
 alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
 
 alias ifconfig='/sbin/ifconfig'
 alias chrome='/opt/google/chrome/chrome'
+alias tmux='tmux -2'
+alias vimupdate='vim +BundleInstall +qall'
 
 
 # Alias definitions.
