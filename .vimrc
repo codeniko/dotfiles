@@ -121,7 +121,7 @@ let g:EasyMotion_leader_key = '<Leader>'
 Bundle 'majutsushi/tagbar'
 
 " Matches closing parens,quotes,def/ends
-Bundle 'tsaleh/vim-matchit'
+" Bundle 'tsaleh/vim-matchit'
 " Navigate between tmux and vim
 Bundle 'christoomey/vim-tmux-navigator'
 
