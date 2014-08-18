@@ -11,8 +11,7 @@ let mapleader=","
 map Y y$
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
-nmap <LEADER>s :write<CR>
-nmap <F1> :TagbarToggle<CR>
+" nmap <LEADER>s :write<CR>
 nnoremap <LEADER>a ggVG
 
 " " Reload config file
@@ -43,18 +42,18 @@ set backspace=indent,eol,start " Backspace over these characters
 set nocompatible "This fixes the problem where arrow keys do not function properly on some systems.
 syntax on  "Enables syntax highlighting for programming languages
 " set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
-set mouse=n " Turn on mouse support in normal mode
+" set mouse=n " Turn on mouse support in normal mode
 set showmatch "Highlights matching brackets in programming languages
 set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set cursorline " Highlight current line
 set ruler " display line and columns in the status bar
 set backspace=2  "This makes the backspace key function like it does in other programs.
-set tabstop=2  "How much space Vim gives to a tab
+set tabstop=3  "How much space Vim gives to a tab
 set showcmd " Display commands as they are typed
 set number  "Enables line numbering
 set smarttab  "Improves tabbing
-set shiftwidth=2  "Assists code formatting
+set shiftwidth=3  "Assists code formatting, indenting with  << >>
 " set nowrap " Turn off line wrapping
 set foldmethod=manual  "Lets you hide sections of code
 ""--- The following commands make the navigation keys work like standard editors
@@ -100,12 +99,13 @@ Bundle 'scrooloose/syntastic'
 let syntastic_gjslint_conf= '--nojsdoc'
 let g:syntastic_java_javac_config_file_enabled= 1
 
+" YouCompleteMe replaces this
 " C/C++ language completion
-Bundle 'Rip-Rip/clang_complete'
-let g:clang_complete_auto = 1
-let g:clang_use_library = 1
-let g:clang_debug = 1
-let g:clang_library_path = '/usr/lib'
+" Bundle 'Rip-Rip/clang_complete'
+" let g:clang_complete_auto = 1
+" let g:clang_use_library = 1
+" let g:clang_debug = 1
+" let g:clang_library_path = '/usr/lib'
 
 " Commenting with gcc binding
 " Bundle 'tomtom/tcomment_vim' 
@@ -117,13 +117,17 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion' 
 let g:EasyMotion_leader_key = '<Leader>'
 
-" Ctags improvement
+" Ctags improvement, F5 to open tagbar
 Bundle 'majutsushi/tagbar'
+nmap <F5> :TagbarToggle<CR>
 
 " Matches closing parens,quotes,def/ends
 " Bundle 'tsaleh/vim-matchit'
+
 " Navigate between tmux and vim
 Bundle 'christoomey/vim-tmux-navigator'
+
+
 
 "
 " original repos on GitHub
