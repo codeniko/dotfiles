@@ -98,9 +98,11 @@ alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
 
 alias ifconfig='/sbin/ifconfig'
-alias chrome='/opt/google/chrome/chrome'
+#alias chrome='/opt/google/chrome/chrome'
 alias tmux='tmux -2'
 alias vimupdate='vim +BundleInstall +qall'
+alias valgrind='valgrind --leak-check=full --show-reachable=yes'
+#alias mousefix='modprobe -r hid_logitech_dj && modprobe hid_logitech_dj'
 
 
 # Alias definitions.
