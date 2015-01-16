@@ -136,3 +136,7 @@ if [ ! -d ${TEXMFHOME} ]; then
 	mkdir -p "${HOME}/texmf/fonts/enc/public"
 	mkdir -p "${HOME}/texmf/fonts/map/dvips/public"
 fi
+
+# remove beeps
+setterm -blength 0
+set bell-style none
