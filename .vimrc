@@ -127,6 +127,8 @@ nmap <F5> :TagbarToggle<CR>
 " Navigate between tmux and vim
 Bundle 'christoomey/vim-tmux-navigator'
 
+" jsx plugin
+Bundle 'mxw/vim-jsx'
 
 
 "

@@ -10,9 +10,9 @@ fi
 /bin/chmod u+x "${outfile}"
 
 for filename in *; do
-	/bin/echo "${filename}" | /bin/grep -q -E -e '.sh$'
+	/bin/echo "${filename}" | grep -q -E -e '.sh$'
 	if [ $? -gt 0 ]; then
-		repo=`/bin/grep -e 'url = ' "${filename}/.git/config" | /usr/bin/cut -d ' ' -f 3` 
+		repo=`grep -e 'url = ' "${filename}/.git/config" | /usr/bin/cut -d ' ' -f 3` 
 		/bin/echo "git clone \"${repo}\"" >> "${outfile}"
 	fi
 done
