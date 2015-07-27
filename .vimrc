@@ -46,18 +46,20 @@ syntax on  "Enables syntax highlighting for programming languages
 " set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
 " set mouse=n " Turn on mouse support in normal mode
 set showmatch "Highlights matching brackets in programming languages
-set autoindent  "If you're indented, new lines will also be indented
-set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set cursorline " Highlight current line
 set ruler " display line and columns in the status bar
 set backspace=2  "This makes the backspace key function like it does in other programs.
-set tabstop=4  "How much space Vim gives to a tab
 set showcmd " Display commands as they are typed
 set number  "Enables line numbering
-set smarttab  "Improves tabbing
-set shiftwidth=4  "Assists code formatting, indenting with  << >>
 " set nowrap " Turn off line wrapping
 set foldmethod=manual  "Lets you hide sections of code
+set expandtab
+set smarttab  "Improves tabbing
+set autoindent  "If you're indented, new lines will also be indented
+set smartindent  "Automatically indents lines after opening a bracket in programming languages
+set tabstop=4  "How much space Vim gives to a tab
+set shiftwidth=4  "Assists code formatting, indenting with  << >>
+autocmd BufRead,BufNewFile   *.less,*.jsx,*.html,*.css set expandtab smarttab autoindent tabstop=4 shiftwidth=4
 ""--- The following commands make the navigation keys work like standard editors
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
