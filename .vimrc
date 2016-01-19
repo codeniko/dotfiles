@@ -9,8 +9,8 @@ let mapleader=","
 
 " " Common mappings
 map Y y$
-nmap <C-z> :undo<CR>
-nmap <C-y> :redo<CR>
+nmap <S-u> :redo<CR>
+
 " nmap <LEADER>s :write<CR>
 nnoremap <LEADER>a ggVG
 
@@ -36,6 +36,7 @@ endif
 if !isdirectory(expand(&directory))
 	call mkdir(expand(&directory), "p")
 endif
+
 " Simplify tag style by removing underlines
 hi TabLine term=none cterm=none ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
 set backspace=indent,eol,start " Backspace over these characters
@@ -49,40 +50,72 @@ set smartindent  "Automatically indents lines after opening a bracket in program
 set cursorline " Highlight current line
 set ruler " display line and columns in the status bar
 set backspace=2  "This makes the backspace key function like it does in other programs.
-set tabstop=3  "How much space Vim gives to a tab
+set tabstop=2  "How much space Vim gives to a tab
 set showcmd " Display commands as they are typed
 set number  "Enables line numbering
 set smarttab  "Improves tabbing
-set shiftwidth=3  "Assists code formatting, indenting with  << >>
+set shiftwidth=2 "Assists code formatting, indenting with  << >>
 " set nowrap " Turn off line wrapping
 set foldmethod=manual  "Lets you hide sections of code
-""--- The following commands make the navigation keys work like standard editors
+set smartcase "ignore case on search unless specified
+set pastetoggle=<F2>
+" --- The following commands make the navigation keys work like standard editors
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
 nmap <silent> <Up> gk
-set smartcase "ignore case on search unless specified
-"--- Ends navigation commands
-""--- The following adds a sweet menu, press F4 to use it.
-source $VIMRUNTIME/menu.vim
-set wildmenu
-set cpo-=<
-set wcm=<C-Z>
-map <F4> :emenu <C-Z>
-"--- End sweet menu
+" Old full page scrolling
+nmap <C-Down> <C-f>
+nmap <C-Up> <C-b>
+
+" Navigation on physical lines, instead of display
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
 
 " Compile Latex when I save it.
 au BufWritePost *.tex "silent !pdflatex %"
 
-" Remove annoying automatic // insertion when pressing enter, o, or O after
-" commented line
-inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
-nnoremap <expr> O getline('.') =~ '^\s*//' ? 'O<esc>S' : 'O'
-nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
+" Removes #, ", and // auto comment insertions
+inoremap <expr> <enter> getline('.') =~ '^\s*[#"//]' ? '<enter><esc>S' : '<enter>'
+nnoremap <expr> O getline('.') =~ '^\s*[#"//]' ? 'O<esc>S' : 'O'
+nnoremap <expr> o getline('.') =~ '^\s*[#"//]' ? 'o<esc>S' : 'o'
 
-"VUNDLE
+" Split windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-N> :vnew<CR>
+nnoremap <C-E> :vsplit<SPACE>
+set splitbelow " open new splits below
+set splitright " open new split to the right
+" move window to new tab
+nnoremap <C-T> <C-W><C-T>
 
-filetype off                 " required!
+" Tabs
+nmap gn :tabnew<CR>
+nmap ge :tabedit<SPACE>
+nmap gl :tabnext<CR>
+nmap gh :tabprev<CR>
+
+" Folds
+set foldmethod=indent
+set foldlevel=0
+set foldclose=all
+" Set mapping to disable/enable auto fold close
+nmap z<S-a> :set foldclose=all
+nmap za :set foldclose=
+" Disable folding on startup
+autocmd BufWinEnter * exe "normal! zn"
+
+" Other interesting commands
+nmap <F9> :%TOhtml
+command Sudow :w !sudo dd of=%
+
+" VUNDLE
+filetype off " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
