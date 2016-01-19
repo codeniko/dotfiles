@@ -7,6 +7,8 @@ let g:rehash256 = 1 " Use Molokai's new version
 " Sets the value of <LEADER> (default is the backslash)
 let mapleader=","
 
+set encoding=utf-8
+
 " " Common mappings
 map Y y$
 nmap <S-u> :redo<CR>
@@ -27,7 +29,7 @@ nmap <SPACE> :match none<CR>:nohlsearch<CR>
 " Backups {{{
 set backup " enable backups
 "     set noswapfile "disable backups
-set backupdir=~/.vim/backup/,/tmp " backups
+set backupdir=~/.vim/backup/tmp " backups
 set directory=~/.vim/swap/ " swap files
 " Create dirs if they don't exist
 if !isdirectory(expand(&backupdir))
@@ -45,21 +47,22 @@ syntax on  "Enables syntax highlighting for programming languages
 " set mouse=a  "Allows you to click around the text editor with your mouse to move the cursor
 " set mouse=n " Turn on mouse support in normal mode
 set showmatch "Highlights matching brackets in programming languages
-set autoindent  "If you're indented, new lines will also be indented
-set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set cursorline " Highlight current line
 set ruler " display line and columns in the status bar
 set backspace=2  "This makes the backspace key function like it does in other programs.
-set tabstop=2  "How much space Vim gives to a tab
 set showcmd " Display commands as they are typed
 set number  "Enables line numbering
-set smarttab  "Improves tabbing
-set shiftwidth=2 "Assists code formatting, indenting with  << >>
 " set nowrap " Turn off line wrapping
-set foldmethod=manual  "Lets you hide sections of code
+set expandtab
+set smarttab  "Improves tabbing
+set autoindent  "If you're indented, new lines will also be indented
+set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set smartcase "ignore case on search unless specified
 set pastetoggle=<F2>
-" --- The following commands make the navigation keys work like standard editors
+set tabstop=2  "How much space Vim gives to a tab
+set shiftwidth=2  "Assists code formatting, indenting with  << >>
+autocmd BufRead,BufNewFile   *.less,*.jsx,*.html,*.css set expandtab smarttab tabstop=2 shiftwidth=2
+""--- The following commands make the navigation keys work like standard editors
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
@@ -160,7 +163,10 @@ nmap <F5> :TagbarToggle<CR>
 " Navigate between tmux and vim
 Bundle 'christoomey/vim-tmux-navigator'
 
+" jsx plugin
+Bundle 'mxw/vim-jsx'
 
+Bundle 'leshill/vim-json'
 
 "
 " original repos on GitHub
