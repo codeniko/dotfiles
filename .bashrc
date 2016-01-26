@@ -97,6 +97,8 @@ alias mount-mancrush='sudo mount $halfcourt:/home/niko/shared /mnt'
 alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
 
+alias vim='vim -O'
+alias vimp='vim -p'
 alias ifconfig='/sbin/ifconfig'
 #alias chrome='/opt/google/chrome/chrome'
 alias tmux='tmux -2'

@@ -11,7 +11,6 @@ set encoding=utf-8
 
 " " Common mappings
 map Y y$
-nmap <S-u> :redo<CR>
 
 " nmap <LEADER>s :write<CR>
 nnoremap <LEADER>a ggVG
@@ -95,7 +94,7 @@ nnoremap <C-E> :vsplit<SPACE>
 set splitbelow " open new splits below
 set splitright " open new split to the right
 " move window to new tab
-nnoremap <C-T> <C-W><C-T>
+nnoremap <C-T> :tabedit %<CR>
 
 " Tabs
 nmap gn :tabnew<CR>
@@ -115,7 +114,7 @@ autocmd BufWinEnter * exe "normal! zn"
 
 " Other interesting commands
 nmap <F9> :%TOhtml
-command Sudow :w !sudo dd of=%
+command! Sudow :w !sudo dd of=%
 
 " VUNDLE
 filetype off " required!
