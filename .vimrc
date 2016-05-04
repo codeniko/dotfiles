@@ -115,6 +115,7 @@ autocmd BufWinEnter * exe "normal! zn"
 " Other interesting commands
 nmap <F9> :%TOhtml
 command! Sudow :w !sudo dd of=%
+command! InstallPlugins :PluginInstall
 
 " VUNDLE
 filetype off " required!
@@ -165,7 +166,10 @@ Bundle 'christoomey/vim-tmux-navigator'
 " jsx plugin
 Bundle 'mxw/vim-jsx'
 
-Bundle 'leshill/vim-json'
+Bundle 'jakar/vim-json'
+Bundle 'pangloss/vim-javascript'
+let g:javascript_enable_domhtmlcss = 1 " Enables HTML/CSS syntax highlighting in your JavaScript file.
+
 
 "
 " original repos on GitHub
