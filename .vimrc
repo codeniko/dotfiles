@@ -170,6 +170,9 @@ Bundle 'jakar/vim-json'
 Bundle 'pangloss/vim-javascript'
 let g:javascript_enable_domhtmlcss = 1 " Enables HTML/CSS syntax highlighting in your JavaScript file.
 
+Plugin 'derekwyatt/vim-scala'
+" Plugin 'dscleaver/sbt-quickfix' " use <leader>ff to open quickfix
+
 
 "
 " original repos on GitHub
