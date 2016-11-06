@@ -71,10 +71,10 @@ nmap <C-Down> <C-f>
 nmap <C-Up> <C-b>
 
 " Navigation on physical lines, instead of display
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
+" nnoremap k gk
+" nnoremap j gj
+" nnoremap gk k
+" nnoremap gj j
 
 " Compile Latex when I save it.
 au BufWritePost *.tex "silent !pdflatex %"
@@ -94,7 +94,7 @@ nnoremap <C-E> :vsplit<SPACE>
 set splitbelow " open new splits below
 set splitright " open new split to the right
 " move window to new tab
-nnoremap <C-T> :tabedit %<CR>
+nmap gc :tabedit %<CR>
 
 " Tabs
 nmap gn :tabnew<CR>
@@ -111,6 +111,8 @@ nmap z<S-a> :set foldclose=all
 nmap za :set foldclose=
 " Disable folding on startup
 autocmd BufWinEnter * exe "normal! zn"
+" disable folding on startup for scala filetypes, vim-scala overrides above
+autocmd filetype scala exe "normal! zn"
 
 " Other interesting commands
 nmap <F9> :%TOhtml
@@ -124,7 +126,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " My bundles here:
@@ -134,6 +136,17 @@ Bundle 'scrooloose/syntastic'
 " disable `no docs` error checking
 let syntastic_gjslint_conf= '--nojsdoc'
 let g:syntastic_java_javac_config_file_enabled= 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_mode_map = {
+    \ "mode": "active",
+    \ "active_filetypes": [],
+    \ "passive_filetypes": ["scala", "sbt"] }
 
 " YouCompleteMe replaces this
 " C/C++ language completion
@@ -144,17 +157,37 @@ let g:syntastic_java_javac_config_file_enabled= 1
 " let g:clang_library_path = '/usr/lib'
 
 " Commenting with gcc binding
-" Bundle 'tomtom/tcomment_vim' 
+" Bundle 'tomtom/tcomment_vim'
 
 " File navigation
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+  \ }
+let g:ctrlp_user_command = {
+  \ 'types': {
+  \ 1: ['.git', 'cd %s && git ls-files'],
+  \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+  \ },
+  \ 'fallback': 'ag %s -i --nocolor --nogroup --hidden
+  \ --ignore out
+  \ --ignore .git
+  \ --ignore .svn
+  \ --ignore .hg
+  \ --ignore .DS_Store
+  \ --ignore "**/*.pyc"
+  \ -g ""'
+  \ }
 
 " Navigation with keyboard
-Bundle 'Lokaltog/vim-easymotion' 
+Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 
 " Ctags improvement, F5 to open tagbar
 Bundle 'majutsushi/tagbar'
+
 nmap <F5> :TagbarToggle<CR>
 
 " Matches closing parens,quotes,def/ends
@@ -170,13 +203,64 @@ Bundle 'jakar/vim-json'
 Bundle 'pangloss/vim-javascript'
 let g:javascript_enable_domhtmlcss = 1 " Enables HTML/CSS syntax highlighting in your JavaScript file.
 
-Plugin 'derekwyatt/vim-scala'
+Bundle 'derekwyatt/vim-scala'
 " Plugin 'dscleaver/sbt-quickfix' " use <leader>ff to open quickfix
 
+" colors are highlighted in their color
+Bundle 'chrisbra/Colorizer'
+
+" ability to show diff between swap file and file being opened
+Bundle 'chrisbra/Recover.vim'
+
+" better status/tabline
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
+let g:airline_theme='molokai'
+
+" show changes +/-/~ when editing file
+Bundle 'airblade/vim-gitgutter'
+
+" git wrapper
+Bundle 'tpope/vim-fugitive'
+
+" Ctrl S to split a selection out to own buffer to modify and then write back
+Bundle 'chrisbra/NrrwRgn'
+vmap <C-s> :'<,'>NR<CR>
+
+Bundle 'scrooloose/nerdtree'
+map <C-t> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " close vim if nerdtree is the only window open
+" open nerdtree automatically and go to right window
+" autocmd vimenter * NERDTree
+" autocmd vimenter * wincmd p
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('less', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('java', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('scala', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('c', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('cpp', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('h', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 "
 " original repos on GitHub
-"Bundle 'tpope/vim-fugitive'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'
 " vim-scripts repos
@@ -200,3 +284,20 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
 
+
+"Always open help files in a rightward vertical split
+cnoreabbrev <expr> help ((getcmdtype() is# ':'    && getcmdline() is# 'help')?('vert help'):('help'))
+cnoreabbrev <expr> h ((getcmdtype() is# ':'    && getcmdline() is# 'h')?('vert help'):('h'))
+
+" vertical split diff
+set diffopt+=vertical
+
+" show relative number line to current line, but show current line absolute line numbe
+set relativenumber
+set number
+
+" visual select to search selection
+vnoremap g/ y/<C-R>"<CR>
+
+" add quotes around selection
+vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
