@@ -142,3 +142,34 @@ fi
 # remove beeps
 setterm -blength 0
 set bell-style none
+
+stty -ixon # disable Software Flow Control, (XON/XOFF)
+
+# alias emu="/Users/nikolay/Library/Android/sdk/tools/emulator -avd Nexus_6_API_16_4_1 -gpu on -no-boot-anim -scale 0.26"
+# alias emu43="/Users/nikolay/Library/Android/sdk/tools/emulator -avd Nexus_6_API_18_FB_4_3 -gpu on -no-boot-anim -scale 0.26"
+# alias emu442="/Users/nikolay/Library/Android/sdk/tools/emulator -avd Nexus_6_API_19_4_4_2 -gpu on -no-boot-anim -scale 0.26"
+
+export M2_HOME=/usr/local/opt/maven/libexec
+export M2=$M2_HOME/bin
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
+export PATH=$M2:$PATH
+export WAXEYE_HOME=/Users/nikolay/src/waxeye
+export SBT_OPTS="-Xmx2G"
+
+alias rebase='git rebase -i HEAD~2'
+alias rebase3='git rebase -i HEAD~3'
+
+# Recursive sed
+function sedr() {
+  local file="$1"
+  local sed_expr="$2"
+
+  if [ -z "$file" -o -z "$sed_expr" ]; then
+    echo "sedr: usage: sedr 'file' 'sed_expr'"
+    return 1
+  fi
+
+  find . -type f -name "$file" -exec sed -i '' "$sed_expr" {} +
+  return $?
+}
+export -f sedr

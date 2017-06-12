@@ -1,8 +1,8 @@
 set t_Co=256
-set background=dark
-colorscheme molokai
+" set background=dark
+colorscheme sonoma " molokai
 " let g:molokai_original = 1
-let g:rehash256 = 1 " Use Molokai's new version
+" let g:rehash256 = 1 " Use Molokai's new version
 
 " Sets the value of <LEADER> (default is the backslash)
 let mapleader=","
@@ -22,6 +22,7 @@ nmap <LEADER>r :source ~/.vimrc<CR>
 noremap <LEADER>y "+y
 noremap <LEADER>p "+p
 
+set hlsearch " highlight search terms
 " " Clear search and match highlighting
 nmap <SPACE> :match none<CR>:nohlsearch<CR>
 
@@ -113,6 +114,7 @@ nmap za :set foldclose=
 autocmd BufWinEnter * exe "normal! zn"
 " disable folding on startup for scala filetypes, vim-scala overrides above
 autocmd filetype scala exe "normal! zn"
+autocmd filetype java exe "UnusedImports"
 
 " Other interesting commands
 nmap <F9> :%TOhtml
@@ -132,21 +134,21 @@ Bundle 'gmarik/vundle'
 " My bundles here:
 
 " Syntax checker
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 " disable `no docs` error checking
-let syntastic_gjslint_conf= '--nojsdoc'
-let g:syntastic_java_javac_config_file_enabled= 1
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "active_filetypes": [],
-    \ "passive_filetypes": ["scala", "sbt"] }
+"let syntastic_gjslint_conf= '--nojsdoc'
+"let g:syntastic_java_javac_config_file_enabled= 1
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 1
+"let g:syntastic_mode_map = {
+"    \ "mode": "active",
+"    \ "active_filetypes": [],
+"    \ "passive_filetypes": ["scala", "sbt", "py"] }
 
 " YouCompleteMe replaces this
 " C/C++ language completion
@@ -205,6 +207,7 @@ let g:javascript_enable_domhtmlcss = 1 " Enables HTML/CSS syntax highlighting in
 
 Bundle 'derekwyatt/vim-scala'
 " Plugin 'dscleaver/sbt-quickfix' " use <leader>ff to open quickfix
+Bundle 'akhaku/vim-java-unused-imports'
 
 " colors are highlighted in their color
 Bundle 'chrisbra/Colorizer'
