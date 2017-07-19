@@ -60,6 +60,7 @@ set smartindent  "Automatically indents lines after opening a bracket in program
 set smartcase "ignore case on search unless specified
 set pastetoggle=<F2>
 set tabstop=2  "How much space Vim gives to a tab
+set softtabstop=2
 set shiftwidth=2  "Assists code formatting, indenting with  << >>
 autocmd BufRead,BufNewFile   *.less,*.jsx,*.html,*.css set expandtab smarttab tabstop=2 shiftwidth=2
 ""--- The following commands make the navigation keys work like standard editors
@@ -110,6 +111,7 @@ set foldclose=all
 " Set mapping to disable/enable auto fold close
 nmap z<S-a> :set foldclose=all
 nmap za :set foldclose=
+nnoremap <space> za
 " Disable folding on startup
 autocmd BufWinEnter * exe "normal! zn"
 " disable folding on startup for scala filetypes, vim-scala overrides above
@@ -189,6 +191,11 @@ let g:EasyMotion_leader_key = '<Leader>'
 
 " Ctags improvement, F5 to open tagbar
 Bundle 'majutsushi/tagbar'
+
+Bundle 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_completion=1 " close autocomplete window
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR> " shortcut for goto definition
+
 
 nmap <F5> :TagbarToggle<CR>
 
@@ -304,3 +311,29 @@ vnoremap g/ y/<C-R>"<CR>
 
 " add quotes around selection
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
+
+" highlight trailiing whitespace
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.sbt,*.scala,*.js,*.jsx,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+
+" python PEP8 indentation
+au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+
+Bundle 'vim-scripts/indentpython.vim'
+" PEP8 lint
+Bundle 'nvie/vim-flake8'
+let python_highlight_all=1
+
+"python with virtualenv support, setup system path so Youcompleteme finds
+"appropriate site packages
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
