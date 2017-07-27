@@ -91,8 +91,6 @@ fi
 alias ls='ls --color=always'
 mancrush='192.168.11.100'
 halfcourt='192.168.11.101'
-javascript='nf139@javascript.cs.rutgers.edu'
-java='nf139@java.cs.rutgers.edu'
 alias mount-mancrush='sudo mount $halfcourt:/home/niko/shared /mnt'
 alias mount-homebase='sudo mount $halfcourt:/home/homebase /mnt'
 alias umount-mnt='sudo umount /mnt'
@@ -100,7 +98,6 @@ alias umount-mnt='sudo umount /mnt'
 alias vim='vim -O'
 alias vimp='vim -p'
 alias ifconfig='/sbin/ifconfig'
-#alias chrome='/opt/google/chrome/chrome'
 alias tmux='tmux -2'
 alias vimupdate='vim +BundleInstall +qall'
 alias valgrind='valgrind --leak-check=full --show-reachable=yes'
@@ -140,7 +137,7 @@ if [ ! -d ${TEXMFHOME} ]; then
 fi
 
 # remove beeps
-setterm -blength 0
+# setterm -blength 0
 set bell-style none
 
 stty -ixon # disable Software Flow Control, (XON/XOFF)
@@ -173,3 +170,9 @@ function sedr() {
   return $?
 }
 export -f sedr
+
+# Linux only
+if [ "$(uname)" == 'Linux' ]; then
+  alias pbcopy='xclip -selection c'
+  alias chrome='/opt/google/chrome/chrome'
+fi

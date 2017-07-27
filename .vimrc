@@ -328,7 +328,7 @@ let python_highlight_all=1
 
 "python with virtualenv support, setup system path so Youcompleteme finds
 "appropriate site packages
-py << EOF
+python3 << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
