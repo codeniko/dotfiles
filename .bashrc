@@ -155,6 +155,7 @@ export SBT_OPTS="-Xmx2G"
 
 alias rebase='git rebase -i HEAD~2'
 alias rebase3='git rebase -i HEAD~3'
+alias submodulepull='git submodule update --remote --merge'
 
 # Recursive sed
 function sedr() {
@@ -175,4 +176,7 @@ export -f sedr
 if [ "$(uname)" == 'Linux' ]; then
   alias pbcopy='xclip -selection c'
   alias chrome='/opt/google/chrome/chrome'
+  alias sbt-clean='sbt clean clean-files; find . -regextype posix-awk -regex "\.(/project)*/target" -exec rm -r {} +'
+else
+  alias sbt-clean='sbt clean clean-files; find -E . -regex "\.(/project)*/target" -exec rm -r {} +'
 fi
