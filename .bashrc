@@ -180,3 +180,5 @@ if [ "$(uname)" == 'Linux' ]; then
 else
   alias sbt-clean='sbt clean clean-files; find -E . -regex "\.(/project)*/target" -exec rm -r {} +'
 fi
+
+alias sbt-clean-dep='rm -rf ~/.sbt ~/.ivy2'
