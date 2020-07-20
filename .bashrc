@@ -90,8 +90,8 @@ fi
 # Java, Scala, and SBT
 export M2_HOME=/usr/local/opt/maven/libexec
 export M2=$M2_HOME/bin
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
-export PATH=$M2:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$M2:$PATH:/opt/idea/bin:/opt/WebStorm/bin:/home/niko/bin
 export SBT_OPTS="-Xmx2G"
 
 # import OS level bashrc
@@ -100,3 +100,12 @@ if [ "$(uname)" == 'Linux' ] && [ -f ~/.bashrc_linux ]; then
 else
   . ~/.bashrc_darwin
 fi
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/niko/google-cloud-sdk/path.bash.inc' ]; then . '/home/niko/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/niko/google-cloud-sdk/completion.bash.inc' ]; then . '/home/niko/google-cloud-sdk/completion.bash.inc'; fi

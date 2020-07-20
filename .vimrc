@@ -59,9 +59,9 @@ set autoindent  "If you're indented, new lines will also be indented
 set smartindent  "Automatically indents lines after opening a bracket in programming languages
 set smartcase "ignore case on search unless specified
 set pastetoggle=<F2>
-set tabstop=2  "How much space Vim gives to a tab
-set softtabstop=2
-set shiftwidth=2  "Assists code formatting, indenting with  << >>
+set tabstop=4  "How much space Vim gives to a tab
+set softtabstop=4
+set shiftwidth=4  "Assists code formatting, indenting with  << >>
 autocmd BufRead,BufNewFile   *.less,*.jsx,*.html,*.css set expandtab smarttab tabstop=2 shiftwidth=2
 ""--- The following commands make the navigation keys work like standard editors
 imap <silent> <Down> <C-o>gj

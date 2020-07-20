@@ -2,6 +2,7 @@ alias vim='vim -O'
 alias vimp='vim -p'
 alias tmux='tmux -2'
 alias vimupdate='vim +BundleInstall +qall'
+alias timedig='time dig ${1}'
 
 # Only use ifconfig from /sbin/
 alias ifconfig='/sbin/ifconfig'
