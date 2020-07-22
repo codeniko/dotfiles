@@ -1,0 +1,26 @@
+# Create startup with fusuma -d
+
+swipe:
+  3:
+    left:
+      #command: 'w=`xdotool getmouselocation --shell 2> /dev/null | grep WINDOW | cut -d= -f2`; curw=`xdotool getactivewindow` && xdotool windowactivate $w && xdotool key alt+Right && xdotool windowactivate $curw'
+      command: 'w=`xdotool getmouselocation --shell 2> /dev/null | grep WINDOW | cut -d= -f2`; xdotool windowactivate $w && xdotool key alt+Right'
+    right:
+      command: 'w=`xdotool getmouselocation --shell 2> /dev/null | grep WINDOW | cut -d= -f2`; xdotool windowactivate $w && xdotool key alt+Left'
+    down:
+      command: 'w=`xdotool getmouselocation --shell 2> /dev/null | grep WINDOW | cut -d= -f2`; xdotool windowactivate $w && xdotool key Home'
+    up:
+      command: 'w=`xdotool getmouselocation --shell 2> /dev/null | grep WINDOW | cut -d= -f2`; xdotool windowactivate $w && xdotool key End'
+  4:
+    left:
+      command: 'xdotool key Super_L+f'
+    right:
+      command: 'xdotool key Super_L+d'
+    up:
+      command: 'xdotool key Super_L+m'
+    down:
+      command: 'xdotool key Super_L+g'
+
+interval:
+  swipe: 0.4
+  threshold: 3
