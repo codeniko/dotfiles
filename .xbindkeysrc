@@ -1,7 +1,7 @@
 # Map mouse button to close active window/page
-"xdotool key 'ctrl+w'"
-    b:9
+#"xdotool key 'ctrl+w'"
+#    b:9
 
 # The ? on F1 key. Toggle mouse scrolling adjustments
 "~/.imwheel_toggle.sh"
-    m:0x40 + c:67
+    m:0x0 + c:133
