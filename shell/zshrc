@@ -1,0 +1,153 @@
+# NOTE: Order matters in this file. Some sections depend on PATH or env vars
+# set by earlier sections. If you move things around, test on both macOS and
+# Linux to make sure nothing breaks.
+
+# =============================================================================
+# Platform Detection
+# =============================================================================
+IS_MAC=false
+IS_LINUX=false
+if [[ "$(uname)" == "Darwin" ]]; then
+    IS_MAC=true
+elif [[ "$(uname)" == "Linux" ]]; then
+    IS_LINUX=true
+fi
+
+# =============================================================================
+# PATH and Environment (platform-specific first, since later sections need them)
+# =============================================================================
+if $IS_MAC; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    export PATH="$HOME/Library/Android/sdk/platform-tools:$HOME/Library/Android/sdk/build-tools/33.0.0:$PATH"
+    export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
+    export LD_LIBRARY_PATH="$HOME/lib/"
+elif $IS_LINUX; then
+    # Add Linux-specific PATH and env vars here
+    :
+fi
+
+# --- 'n' Node Version Manager ---
+export N_PREFIX="/usr/local"
+export PATH="$N_PREFIX/bin:$PATH"
+
+# SBT
+export SBT_OPTS="-Xmx2G"
+
+export LSCOLORS="Exfxcxdxbxegedabagacad"
+
+# =============================================================================
+# Aliases
+# =============================================================================
+alias vim='vim -O'
+alias vimp='vim -p'
+alias vimupdate='vim +BundleInstall +qall'
+alias reload="exec zsh"
+alias config="vim ~/.zshrc"
+alias plugins="vim ~/.zsh_plugins.txt"
+alias mitmproxy='mitmproxy --set console_mouse=false'
+alias ktlint='./gradlew mail-pp:ktlintFormat'
+alias pull='git pull up master'
+
+if $IS_MAC; then
+    alias okta='cat ~/Desktop/okta | tr -d "\n" | pbcopy'
+    alias java-17='export JAVA_HOME=$(/usr/libexec/java_home -v 17); java -version'
+    alias java-11='export JAVA_HOME=$(/usr/libexec/java_home -v 11); java -version'
+elif $IS_LINUX; then
+    alias okta='cat ~/Desktop/okta | tr -d "\n" | xclip -selection clipboard'
+    alias bat='batcat'
+fi
+
+# =============================================================================
+# Git
+# =============================================================================
+gp()  { git push up "nikolay/$1" "${@:2}"; }
+alias ga='git add'
+alias gap='git add -p'
+alias gc='git commit'
+alias gca='git commit --amend'
+gco() {
+  if [[ "$1" == "main" || "$1" == "master" || "$1" == "-p" ]]; then
+    git checkout "$@"
+  else
+    git checkout "nikolay/$1" "${@:2}"
+  fi
+}
+gcb() { git checkout -b "nikolay/$1" "${@:2}"; }
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias glog='git log --oneline --decorate --graph'
+alias gs='git status'
+
+# =============================================================================
+# SSH
+# =============================================================================
+if $IS_MAC; then
+    export SSH_AUTH_SOCK="$HOME/.yubiagent/sock"
+fi
+
+# =============================================================================
+# Plugins (Antidote)
+# =============================================================================
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
+
+# eza (must be after antidote to override oh-my-zsh ls alias)
+if $IS_MAC; then
+    alias ls="/opt/homebrew/bin/eza --group-directories-first"
+    alias ll="/opt/homebrew/bin/eza -lh --group-directories-first"
+    alias la="/opt/homebrew/bin/eza -lah --group-directories-first"
+    alias tree="/opt/homebrew/bin/eza --tree"
+elif $IS_LINUX; then
+    alias ls="eza --group-directories-first"
+    alias ll="eza -lh --group-directories-first"
+    alias la="eza -lah --group-directories-first"
+    alias tree="eza --tree"
+fi
+
+# Kube PS1
+if $IS_MAC; then
+    if [ -f "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh" ]; then
+        source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+        # Uncomment to show kube context in prompt:
+        # PROMPT='$(kube_ps1)'$PROMPT
+    fi
+fi
+
+# =============================================================================
+# Completion
+# =============================================================================
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*' list-colors ''
+
+# =============================================================================
+# Starship Prompt
+# =============================================================================
+eval "$(starship init zsh)"
+
+# --- Transient Prompt ---
+precmd_restore_prompt() {
+  if [[ -n "$_SAVED_PROMPT" ]]; then
+    PROMPT="$_SAVED_PROMPT"
+    RPROMPT="$_SAVED_RPROMPT"
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd precmd_restore_prompt
+
+zle-line-finish() {
+  _SAVED_PROMPT="$PROMPT"
+  _SAVED_RPROMPT="$RPROMPT"
+  PROMPT="%B%F{green}❯%f%b "
+  RPROMPT=""
+  zle reset-prompt
+}
+zle -N zle-line-finish
+
+# =============================================================================
+# Keybindings
+# =============================================================================
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down

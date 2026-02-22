@@ -1,0 +1,11 @@
+# Only show the directory, git branch, git status, and the prompt character
+format = """
+$directory\
+$git_branch\
+$git_status\
+$character"""
+
+# Make the prompt character a simple arrow
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

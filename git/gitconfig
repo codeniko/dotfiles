@@ -1,0 +1,49 @@
+[user]
+
+  name = Nikolay Feldman
+
+	email = niko@nfeld.com
+
+[core]
+
+  editor = vim
+
+  pager = delta
+
+  excludesfile = /Users/nikolay/.gitignore_global
+
+[interactive]
+
+  diffFilter = delta --color-only
+
+[delta]
+
+  navigate = true
+  side-by-side = true
+
+[merge]
+
+  tool = vimdiff
+  conflictstyle = diff3
+
+[diff]
+
+  colorMoved = default
+
+[alias]
+
+  root-dir = !git rev-parse --show-toplevel
+
+  apply-gitignore = !git ls-files -ci --exclude-standard -z | xargs -0 git rm --cached
+
+  hide-changes = !git update-index --assume-unchanged
+
+  show-changes = !git update-index --no-assume-unchanged
+
+  rebase2 = !git rebase -i HEAD~2
+
+  rebase3 = !git rebase -i HEAD~3
+
+  submodulepull = !git submodule update --remote --merge
+
+  cloner = !git clone --recursive

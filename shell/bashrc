@@ -1,0 +1,2 @@
+# Minimal bashrc — Zsh is the preferred shell
+alias setzsh='chsh -s $(which zsh) && echo "Default shell set to Zsh. Log out and back in."'

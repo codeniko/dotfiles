@@ -1,0 +1,11 @@
+mattmc3/antidote
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-completions
+
+# Oh-my-zsh dependency management
+getantidote/use-omz
+
+ohmyzsh/ohmyzsh path:lib
+# ohmyzsh/ohmyzsh path:plugins/git
