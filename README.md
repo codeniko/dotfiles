@@ -22,8 +22,6 @@ dotfiles/
 │   └── gitconfig            → ~/.gitconfig
 ├── tmux/
 │   └── tmux.conf            → ~/.tmux.conf
-├── node/
-│   └── npmrc                → ~/.npmrc
 ├── syncFiles.sh
 ├── installFiles.sh
 └── diffFiles.sh

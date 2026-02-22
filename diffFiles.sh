@@ -24,9 +24,6 @@ FILES=(
 
     # Tmux
     "$HOME/.tmux.conf                tmux/tmux.conf"
-
-    # Node
-    "$HOME/.npmrc                    node/npmrc"
 )
 
 HAS_DIFF=false

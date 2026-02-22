@@ -39,9 +39,6 @@ FILES=(
 
     # Tmux
     "$HOME/.tmux.conf                tmux/tmux.conf"
-
-    # Node
-    "$HOME/.npmrc                    node/npmrc"
 )
 
 for entry in "${FILES[@]}"; do
