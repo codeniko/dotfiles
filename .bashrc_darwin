@@ -1,2 +1,0 @@
-alias ls='ls -G'
-alias sbt-clean='sbt clean clean-files; find -E . -regex "\.(/project)*/target" -exec rm -r {} +'
